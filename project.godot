@@ -16,7 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GlobalMotion="*res://scrips/GLOBAL_MOTION.gd"
+NIVEL1="*res://scrips/NIVEL1.gd"
 
 [physics]
 
