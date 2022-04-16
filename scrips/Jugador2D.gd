@@ -15,6 +15,8 @@ onready var anim = $AnimatedSprite
 
 func _physics_process(delta):
 	
+	if get_parent().vida_player == 0:
+		get_tree().reload_current_scene()
 	
 	if !is_ladder:
 		motion.y += gravedad
@@ -33,8 +35,10 @@ func get_input(delta):
 	dir = int(KETYRIGHT) - int(KEYLEFT)
 	
 	if dir != 0:
+# warning-ignore:narrowing_conversion
 		motion.x = move(motion.x , maxspeed * dir * delta, acc)
 	else:
+# warning-ignore:narrowing_conversion
 		motion.x = move(motion.x, 0,ficc)
 		
 	if Input.is_action_pressed("ui_up") and is_ladder :
@@ -50,7 +54,7 @@ func get_input(delta):
 			anim.play("jump")
 
 func state_ma():
-	
+
 	if motion.x == 0 and is_on_floor():
 		anim.play("idle")
 	if motion.x != 0 and is_on_floor():
@@ -79,3 +83,10 @@ func _on_ladder_body_exited(body):
 	if body.is_in_group("escaleras"):
 		is_ladder = false
 		subiendo = false
+
+#####################Alesis######################
+func _on_colision_pinchos_body_entered(body):
+	var padre = get_parent()
+	if body.is_in_group("pinchos"):
+		print("pinchos")
+		padre.quitar_vida()

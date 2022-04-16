@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/run_bot.png" type="Texture" id=1]
 [ext_resource path="res://Assets/idle_bot.png" type="Texture" id=2]
@@ -22,26 +22,6 @@ region = Rect2( 64, 0, 32, 32 )
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 1 )
-region = Rect2( 64, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 1 )
-region = Rect2( 96, 0, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 32, 32 )
-
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 32, 32 )
@@ -58,6 +38,26 @@ region = Rect2( 64, 0, 32, 32 )
 atlas = ExtResource( 5 )
 region = Rect2( 96, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
@@ -65,9 +65,9 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
-"name": "run",
+"name": "ladder",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 11 ) ],
@@ -75,9 +75,9 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
-"name": "ladder",
+"name": "run",
 "speed": 5.0
 } ]
 
@@ -87,14 +87,16 @@ extents = Vector2( 7, 14 )
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 1, 10 )
 
+[sub_resource type="CapsuleShape2D" id=18]
+height = 10.0
+
 [node name="jugador" type="KinematicBody2D"]
 position = Vector2( 426, 324 )
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
-animation = "ladder"
-frame = 3
+animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2, 1 )
@@ -111,5 +113,14 @@ collision_mask = 512
 position = Vector2( 2, 0 )
 shape = SubResource( 13 )
 
+[node name="colision_pinchos" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="colision_pinchos"]
+position = Vector2( -2, 1 )
+shape = SubResource( 18 )
+
 [connection signal="body_entered" from="ladder" to="." method="_on_ladder_body_entered"]
 [connection signal="body_exited" from="ladder" to="." method="_on_ladder_body_exited"]
+[connection signal="body_entered" from="colision_pinchos" to="." method="_on_colision_pinchos_body_entered"]
