@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/64-bit/bloque.png" type="Texture" id=1]
 [ext_resource path="res://Assets/64-bit/escena_1.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Escenas/pieza.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Assets/64-bit/fondo_bot.png" type="Texture" id=8]
 [ext_resource path="res://Escenas/Puerta.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Escenas/roca.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -141,3 +142,7 @@ position = Vector2( 117, 427 )
 
 [node name="pieza5" parent="piezas" instance=ExtResource( 7 )]
 position = Vector2( 683, 422 )
+
+[node name="roca" parent="." groups=["roca"] instance=ExtResource( 10 )]
+position = Vector2( 344, 576 )
+motion/sync_to_physics = true

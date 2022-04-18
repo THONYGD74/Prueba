@@ -39,6 +39,7 @@ func _physics_process(delta):
 	state_ma()
 	motion = move_and_slide(motion, Vector2.UP)
 	
+	
 
 func get_input(delta):
 	var KEYLEFT = Input.is_action_pressed("ui_left")
